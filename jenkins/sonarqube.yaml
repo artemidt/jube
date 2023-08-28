@@ -1,0 +1,38 @@
+## Enable SonarQube code analyse
+dotnetCoreSonarScan: True
+
+## Install java inside container. Sonarscanner requires jre
+installJava: "apk add --no-cache openjdk11-jre"
+
+## project key for SonarQube
+projectKey: "boss-retail-jube-service"
+
+## project name to display in SonarQube. Template: [Team] project
+projectName: "[RCS] boss-retail-jube-service"
+
+## branch SonarQube should be run for
+branch: "sandbox"
+
+## Stop build if quality gate has not been passed. ‘False’ by default
+failBuildOnQualityGate: False
+
+## optional param to set version in Sonar report
+#version: 1.2.3
+
+## optional param to define develop branch names (develop, master, etc)
+developPattern: "sandbox"
+
+## optional param to define release branch names
+releasePattern: "^(release|hotfix).*"
+
+## optional param - docker image used to perform scan process
+dockerImage: "mcr.microsoft.com/dotnet/sdk:6.0-alpine"
+
+## optional param - custom parameters for dotnet restore. Defaults to current dir
+#dotnetRestoreParams: ""
+
+## optional param - dotnetBuildParams
+dotnetBuildParams: "-c Release"
+
+## sonar scanner version t be installed as dotnet global tool
+sonarScannerVersion: "5.4"

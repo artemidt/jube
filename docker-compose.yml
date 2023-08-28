@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:13-alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test5
+    command: [ postgres, -c, wal_level=logical ]
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+
+  jube:
+    container_name: jube-service
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on: [db]
+    ports:
+      - 5001:80
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Docker"
+
+volumes:
+  db-data:
